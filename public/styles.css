@@ -129,6 +129,8 @@ code {
 .site-nav {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 16px;
 }
 
@@ -474,6 +476,13 @@ code {
   letter-spacing: -0.02em;
 }
 
+.panel-meta {
+  margin: -6px 0 10px;
+  color: var(--muted2);
+  font-weight: 650;
+  font-size: 0.95rem;
+}
+
 .panel-list {
   margin: 0;
   padding-left: 18px;
@@ -781,6 +790,9 @@ html.js [data-reveal].is-visible {
 @media (max-width: 520px) {
   .site-nav a {
     padding: 9px 8px;
+  }
+  .site-nav {
+    gap: 6px;
   }
   .btn {
     width: 100%;
