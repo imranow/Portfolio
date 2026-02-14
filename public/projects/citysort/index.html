@@ -65,7 +65,8 @@
                 <h1 class="project-title">CitySort</h1>
                 <p class="project-subtitle">
                   A rules-driven workflow for normalizing and validating
-                  location data, designed around operator speed and traceability.
+                  location data, with LLM-assisted automations (Anthropic) to
+                  speed up triage and rule authoring.
                 </p>
               </div>
             </div>
@@ -108,24 +109,48 @@
               </li>
             </ul>
 
+            <h2>AI + automation (Anthropic)</h2>
+            <p>
+              CitySort uses Anthropic to assist operators on top of deterministic
+              rules: AI produces suggestions, not silent writes. The goal is to
+              speed up triage while keeping decisions explainable and
+              reversible.
+            </p>
+            <ul>
+              <li>Suggest normalized outputs and likely matches</li>
+              <li>Summarise edge cases and highlight missing context</li>
+              <li>Draft rule changes with a before/after preview</li>
+            </ul>
+
+            <h2>Automations for data quality</h2>
+            <p>
+              Beyond AI assistance, CitySort runs background jobs and checks so
+              data stays clean as volume grows.
+            </p>
+            <ul>
+              <li>Batch validation to flag anomalies and duplicates</li>
+              <li>Pre-merge checks to prevent rule regressions</li>
+              <li>Audit trails to make changes traceable</li>
+            </ul>
+
             <h2>Highlights</h2>
             <div class="callouts">
               <div class="callout">
-                <h3>Rules and validation</h3>
+                <h3>Human-in-the-loop AI</h3>
                 <p>
-                  A structured way to encode how location data should be
-                  normalized, with checks to prevent regressions.
+                  Anthropic-powered suggestions that speed up operator work,
+                  while keeping humans in control of every write.
                 </p>
               </div>
               <div class="callout">
-                <h3>Operator UX</h3>
+                <h3>Automation workflows</h3>
                 <p>
-                  Designed for throughput: quick triage, keyboard-friendly flows,
-                  and safe defaults.
+                  Batch jobs and validations that keep the system consistent as
+                  the rule set grows.
                 </p>
               </div>
               <div class="callout">
-                <h3>Traceability</h3>
+                <h3>Traceability + safety</h3>
                 <p>
                   Audit-friendly changes with clarity on what happened, why it
                   happened, and how to undo it.
@@ -136,8 +161,8 @@
             <h2>What I would show in a live demo</h2>
             <ol>
               <li>How a noisy input gets normalized end-to-end</li>
-              <li>A rules change and its measured impact</li>
-              <li>How operators handle edge cases safely</li>
+              <li>An Anthropic-assisted suggestion and operator approval</li>
+              <li>An automation run plus the audit trail and metrics</li>
             </ol>
 
             <h2>Next</h2>

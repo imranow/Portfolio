@@ -64,8 +64,8 @@
               <div>
                 <h1 class="project-title">OfflineAI</h1>
                 <p class="project-subtitle">
-                  A mobile-first app focused on speed and reliability, with a
-                  tight feedback loop between UX and performance.
+                  A mobile-first app with downloadable on-device ML, so core AI
+                  features work without a network connection.
                 </p>
               </div>
             </div>
@@ -86,48 +86,60 @@
           <div class="prose" data-reveal>
             <h2>Problem</h2>
             <p>
-              On mobile, small performance issues become product issues: slow
-              startup, janky lists, and flaky network behavior. OfflineAI is
-              built to feel fast and predictable on real devices.
+              Mobile networks are unreliable and latency kills UX. OfflineAI is
+              designed so AI features still work when connectivity drops, while
+              keeping the app fast and predictable on real devices.
             </p>
 
             <h2>Approach</h2>
             <ul>
               <li>
-                Make core flows obvious: reduce steps, reduce cognitive load, and
-                keep state transitions clear.
+                Keep core flows obvious: reduce steps, reduce cognitive load,
+                and keep state transitions clear.
               </li>
               <li>
                 Optimize the critical path: fast first interaction, smooth
                 navigation, and careful data loading.
               </li>
               <li>
-                Instrument the app to learn quickly: measure drop-offs and
-                iterate based on behavior.
+                Ship models safely: versioned downloads, caching, integrity
+                checks, and rollback.
               </li>
+            </ul>
+
+            <h2>Downloadable ML system</h2>
+            <p>
+              The app can download model packages to the device and run
+              inference locally. This makes the experience resilient and keeps
+              sensitive prompts/data on-device when needed.
+            </p>
+            <ul>
+              <li>Versioned model bundles with a clear update path</li>
+              <li>Local caching so the app stays usable offline</li>
+              <li>Fallback behavior if a model update fails</li>
             </ul>
 
             <h2>Highlights</h2>
             <div class="callouts">
               <div class="callout">
-                <h3>Fast onboarding</h3>
+                <h3>Model downloads</h3>
                 <p>
-                  Designed to get users to their first successful action with
-                  minimal friction.
+                  Downloadable model packages with caching and guardrails to
+                  keep upgrades safe.
                 </p>
               </div>
               <div class="callout">
-                <h3>Performance-first UI</h3>
+                <h3>Offline inference</h3>
                 <p>
-                  Rendering and loading patterns chosen to avoid jank and reduce
-                  wasted work.
+                  On-device inference so core AI features keep working without a
+                  network connection.
                 </p>
               </div>
               <div class="callout">
-                <h3>Analytics loop</h3>
+                <h3>Performance-first UX</h3>
                 <p>
-                  Events that map to product questions, so improvements are
-                  measurable.
+                  Rendering and loading patterns chosen to avoid jank and keep
+                  interactions responsive.
                 </p>
               </div>
             </div>
