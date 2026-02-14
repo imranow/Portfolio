@@ -24,9 +24,9 @@ Then open http://localhost:8000
 
 ## Deploy To GitHub Pages
 
-1. Create a GitHub repo and add it as a remote:
+1. Add the GitHub repo as a remote:
    ```bash
-   git remote add origin git@github.com:<YOUR_USER>/<YOUR_REPO>.git
+   git remote add origin https://github.com/imranow/Portfolio.git
    ```
 2. Commit and push to `main`.
 3. In GitHub: `Settings` -> `Pages` -> set `Build and deployment` to `GitHub Actions` (if it is not already).
@@ -41,3 +41,5 @@ Then open http://localhost:8000
 
 This site uses relative paths so it works in both cases.
 
+For this repo, the deployed URL will be:
+- `https://imranow.github.io/Portfolio/`
