@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Fraud ML case study: turning raw events into risk decisions with evaluation and monitoring."
+    />
+
+    <title>Fraud ML - Case Study</title>
+
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../../styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="../../script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../../" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true">I</span>
+          <span class="brand-text">Imran</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="../../#projects">Projects</a>
+          <a href="../../#about">About</a>
+          <a href="../../#contact" class="nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content" class="page">
+      <section class="section">
+        <div class="container">
+          <p class="crumb" data-reveal>
+            <a href="../../#projects">Projects</a>
+            <span class="sep" aria-hidden="true">/</span>
+            <span>Fraud ML</span>
+          </p>
+
+          <div class="project-hero" data-reveal>
+            <div class="project-hero-top">
+              <img
+                class="project-icon"
+                src="../../assets/fraud-ml.svg"
+                width="64"
+                height="64"
+                alt=""
+                aria-hidden="true"
+              />
+              <div>
+                <h1 class="project-title">Fraud ML Detection</h1>
+                <p class="project-subtitle">
+                  An end-to-end fraud pipeline: ingestion, features, ranking, and
+                  decisioning with evaluation and monitoring.
+                </p>
+              </div>
+            </div>
+
+            <div class="project-actions">
+              <a class="btn btn-primary" href="../../#contact">Work with me</a>
+              <a class="btn btn-ghost" href="#" aria-disabled="true">Repo</a>
+              <a class="btn btn-ghost" href="#" aria-disabled="true"
+                >Writeup</a
+              >
+            </div>
+          </div>
+
+          <div class="prose" data-reveal>
+            <h2>Problem</h2>
+            <p>
+              Fraud is adversarial and non-stationary. The hard part is not just
+              modeling, but building the system around the model: reliable
+              features, evaluation you trust, and feedback loops that keep the
+              solution effective over time.
+            </p>
+
+            <h2>Approach</h2>
+            <ul>
+              <li>
+                Event-driven ingestion that produces clean, validated inputs for
+                feature building.
+              </li>
+              <li>
+                A scoring path designed for latency and explainability where
+                possible.
+              </li>
+              <li>
+                Evaluation and monitoring that detect drift and data quality
+                regressions early.
+              </li>
+            </ul>
+
+            <h2>Highlights</h2>
+            <div class="callouts">
+              <div class="callout">
+                <h3>Features with guardrails</h3>
+                <p>
+                  Feature computation that is versioned and validated to prevent
+                  silent breakage.
+                </p>
+              </div>
+              <div class="callout">
+                <h3>Evaluation you can trust</h3>
+                <p>
+                  Metrics that map to decisions: false positives, false
+                  negatives, and cost tradeoffs.
+                </p>
+              </div>
+              <div class="callout">
+                <h3>Monitoring and drift</h3>
+                <p>
+                  Alerts that catch upstream changes early and make issues
+                  actionable.
+                </p>
+              </div>
+            </div>
+
+            <h2>What I would show in a live demo</h2>
+            <ol>
+              <li>Ingest an event stream and compute features</li>
+              <li>Score transactions and explain the ranking signal</li>
+              <li>Monitoring dashboards and an example drift scenario</li>
+            </ol>
+
+            <h2>Next</h2>
+            <p class="next-links">
+              <a class="btn btn-small btn-ghost" href="../citysort/"
+                >Back: CitySort</a
+              >
+              <a class="btn btn-small btn-ghost" href="../../#projects"
+                >All projects</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-left">
+          <span class="footer-mark" aria-hidden="true"></span>
+          <span>Imran</span>
+        </p>
+        <p class="footer-right">
+          <a href="../../">Home</a>
+          <span class="sep" aria-hidden="true">/</span>
+          <a href="../../#projects">Projects</a>
+          <span class="sep" aria-hidden="true">/</span>
+          <a href="../../#contact">Contact</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
