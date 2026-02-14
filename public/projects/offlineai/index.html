@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="OfflineAI case study: a mobile-first app built for speed and reliability."
+      content="OfflineAI case study: a privacy-first, offline iOS app running small language models fully on-device."
     />
 
     <title>OfflineAI - Case Study</title>
@@ -64,8 +64,9 @@
               <div>
                 <h1 class="project-title">OfflineAI</h1>
                 <p class="project-subtitle">
-                  A mobile-first app with downloadable on-device ML, so core AI
-                  features work without a network connection.
+                  A production-grade offline-first iOS app running small language
+                  models completely on-device, with privacy-first design and
+                  intelligent resource management.
                 </p>
               </div>
             </div>
@@ -84,65 +85,103 @@
           </div>
 
           <div class="prose" data-reveal>
-            <h2>Problem</h2>
+            <h2>What it is</h2>
             <p>
-              Mobile networks are unreliable and latency kills UX. OfflineAI is
-              designed so AI features still work when connectivity drops, while
-              keeping the app fast and predictable on real devices.
+              OfflineAI is a privacy-first iOS app that runs small language
+              models completely offline. There are no cloud dependencies and no
+              API costs, while still supporting a usable, fast experience on
+              real devices.
             </p>
 
-            <h2>Approach</h2>
+            <h2>Features</h2>
             <ul>
               <li>
-                Keep core flows obvious: reduce steps, reduce cognitive load,
-                and keep state transitions clear.
+                <strong>100% offline:</strong> all inference runs locally on
+                device.
+              </li>
+              <li><strong>Zero API costs:</strong> no cloud dependencies.</li>
+              <li>
+                <strong>Complete privacy:</strong> AES-256 encryption and no
+                telemetry.
               </li>
               <li>
-                Optimize the critical path: fast first interaction, smooth
-                navigation, and careful data loading.
+                <strong>Intelligent resource management:</strong> dynamic
+                quantisation (4-bit/8-bit), LRU model caching with automatic
+                unloading, memory pressure monitoring, and battery-aware
+                processing.
               </li>
               <li>
-                Ship models safely: versioned downloads, caching, integrity
-                checks, and rollback.
+                <strong>Context management:</strong> semantic chunking with
+                embedding-based relevance.
+              </li>
+              <li>
+                <strong>Offline-first sync (optional):</strong> optional
+                encrypted cloud sync.
               </li>
             </ul>
 
-            <h2>Downloadable ML system</h2>
+            <h2>Architecture</h2>
             <p>
-              The app can download model packages to the device and run
-              inference locally. This makes the experience resilient and keeps
-              sensitive prompts/data on-device when needed.
+              The app is split into a few core components that keep inference
+              reliable under real-world constraints (memory, battery, and device
+              performance variability).
             </p>
-            <ul>
-              <li>Versioned model bundles with a clear update path</li>
-              <li>Local caching so the app stays usable offline</li>
-              <li>Fallback behavior if a model update fails</li>
-            </ul>
-
-            <h2>Highlights</h2>
             <div class="callouts">
               <div class="callout">
-                <h3>Model downloads</h3>
+                <h3>Model management</h3>
                 <p>
-                  Downloadable model packages with caching and guardrails to
-                  keep upgrades safe.
+                  Lazy loading with an LRU cache, automatic unloading on memory
+                  pressure, preloading during idle + charging, and support for
+                  multiple quantisation levels.
                 </p>
               </div>
               <div class="callout">
-                <h3>Offline inference</h3>
+                <h3>Device profiling</h3>
                 <p>
-                  On-device inference so core AI features keep working without a
-                  network connection.
+                  Memory detection/monitoring, battery state tracking, automatic
+                  model selection, and performance benchmarking.
                 </p>
               </div>
               <div class="callout">
-                <h3>Performance-first UX</h3>
+                <h3>Inference engine</h3>
                 <p>
-                  Rendering and loading patterns chosen to avoid jank and keep
-                  interactions responsive.
+                  Streaming token generation, batch processing for efficiency,
+                  and embedding generation.
+                </p>
+              </div>
+              <div class="callout">
+                <h3>Data layer</h3>
+                <p>
+                  SwiftData local persistence with AES-256-GCM encryption and
+                  per-conversation encryption keys.
                 </p>
               </div>
             </div>
+
+            <h2>Supported models</h2>
+            <h3>Phi-3-Mini (recommended)</h3>
+            <ul>
+              <li>Parameters: 3.8B</li>
+              <li>Context: 4096 tokens</li>
+              <li>Quantisations: Q4_0 (~2.1 GB), Q8_0 (~3.9 GB)</li>
+              <li>Best for: modern devices (iPhone 12+)</li>
+            </ul>
+
+            <h3>TinyLlama (fallback)</h3>
+            <ul>
+              <li>Parameters: 1.1B</li>
+              <li>Context: 2048 tokens</li>
+              <li>Quantisation: Q4_0 (~0.6 GB)</li>
+              <li>Best for: older devices or low memory</li>
+            </ul>
+
+            <h2>What I would demo</h2>
+            <ol>
+              <li>On-device model selection (Phi-3 vs TinyLlama)</li>
+              <li>Quantisation switching (4-bit/8-bit) based on device profile</li>
+              <li>Memory pressure handling and LRU cache eviction</li>
+              <li>Encrypted local storage for conversations</li>
+            </ol>
 
             <h2>Next</h2>
             <p class="next-links">

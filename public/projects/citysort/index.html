@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="CitySort case study: rules-driven location workflows with validation and operator-focused UX."
+      content="CitySort AI MVP case study: ingest, OCR, classify, validate, and route city documents with human-in-the-loop review."
     />
 
-    <title>CitySort - Case Study</title>
+    <title>CitySort AI MVP - Case Study</title>
 
     <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../../styles.css" />
@@ -64,9 +64,8 @@
               <div>
                 <h1 class="project-title">CitySort</h1>
                 <p class="project-subtitle">
-                  A rules-driven workflow for normalizing and validating
-                  location data, with LLM-assisted automations (Anthropic) to
-                  speed up triage and rule authoring.
+                  A runnable AI MVP to ingest, OCR, classify, validate, and route
+                  city documents with human-in-the-loop review.
                 </p>
               </div>
             </div>
@@ -87,82 +86,236 @@
           <div class="prose" data-reveal>
             <h2>Problem</h2>
             <p>
-              Location inputs are noisy: typos, inconsistent formatting, and edge
-              cases (abbreviations, alternate spellings, missing context). The
-              goal of CitySort is to turn messy inputs into clean, consistent,
-              explainable outputs.
+              City teams handle high volumes of documents that need to be
+              extracted, classified, validated, and routed quickly. Manual triage
+              is slow and inconsistent, and you still need auditability and safe
+              fallbacks when OCR/LLM providers are unavailable.
             </p>
 
-            <h2>Approach</h2>
+            <h2>What it is</h2>
+            <p>
+              CitySort AI MVP is a runnable pipeline that can ingest city
+              documents, extract fields, classify document type, validate required
+              fields, and route items into department queues with a
+              human-in-the-loop review workflow.
+            </p>
+
+            <h2>Document lifecycle</h2>
+            <p>
+              Documents move through explicit states so operators always know
+              what happened and what to do next:
+              <code>ingested</code>, <code>routed</code>,
+              <code>needs_review</code>, <code>approved</code>,
+              <code>corrected</code>, <code>failed</code>.
+            </p>
+
+            <h2>AI providers (Anthropic + fallback)</h2>
+            <p>
+              OCR and classification are provider-switched. If credentials are
+              missing or calls fail, the system automatically falls back to local
+              processing so the pipeline keeps moving.
+            </p>
             <ul>
               <li>
-                Define clear rules and validations so outcomes are consistent and
-                explainable.
+                OCR providers: <code>local</code> (native text + PDF parsing),
+                <code>azure_di</code> (Azure Document Intelligence)
               </li>
               <li>
-                Build an operator-first UI: fast review, bulk actions, and
-                guardrails for risky changes.
+                Classification providers: <code>rules</code> (keyword model),
+                <code>openai</code> (JSON classification),
+                <code>anthropic</code> (JSON classification)
               </li>
               <li>
-                Make it observable: audit trails, metrics, and a feedback loop
-                for continuously improving rules.
+                Confidence gate for auto-routing via
+                <code>CITYSORT_CONFIDENCE_THRESHOLD</code> (default 0.82)
+              </li>
+              <li>
+                Always-human-review doc types via
+                <code>CITYSORT_FORCE_REVIEW_DOC_TYPES</code>
               </li>
             </ul>
 
-            <h2>AI + automation (Anthropic)</h2>
+            <h2>Human-in-the-loop review</h2>
             <p>
-              CitySort uses Anthropic to assist operators on top of deterministic
-              rules: AI produces suggestions, not silent writes. The goal is to
-              speed up triage while keeping decisions explainable and
-              reversible.
+              The dashboard supports operator review actions end-to-end, with a
+              review pane that shows extracted fields, validation issues,
+              corrected JSON fields, text preview, and per-document audit
+              history.
             </p>
             <ul>
-              <li>Suggest normalized outputs and likely matches</li>
-              <li>Summarise edge cases and highlight missing context</li>
-              <li>Draft rule changes with a before/after preview</li>
+              <li>
+                Reprocess selected documents to apply the latest rules/providers
+                without re-upload
+              </li>
+              <li>
+                Audit trail API per document:
+                <code>/api/documents/{id}/audit</code>
+              </li>
             </ul>
 
-            <h2>Automations for data quality</h2>
+            <h2>Rules and routing without code changes</h2>
             <p>
-              Beyond AI assistance, CitySort runs background jobs and checks so
-              data stays clean as volume grows.
+              Rules are configurable at runtime. The UI includes a rules editor
+              plus a form-based rules builder (types, keywords, required fields,
+              routing) so most users never need to touch JSON.
             </p>
             <ul>
-              <li>Batch validation to flag anomalies and duplicates</li>
-              <li>Pre-merge checks to prevent rule regressions</li>
-              <li>Audit trails to make changes traceable</li>
+              <li>
+                Rules config APIs: <code>GET/PUT /api/config/rules</code>,
+                <code>POST /api/config/rules/reset</code>
+              </li>
+              <li>Department queues + analytics APIs for routing visibility</li>
+            </ul>
+
+            <h2>Platform operations (enterprise-style controls)</h2>
+            <p>
+              CitySort includes platform APIs for connectivity checks, manual
+              deployments, invitations, and API key lifecycle management.
+            </p>
+            <ul>
+              <li>
+                Connectivity: <code>GET /api/platform/connectivity</code>,
+                <code>POST /api/platform/connectivity/check</code>
+              </li>
+              <li>
+                Deployments: <code>POST /api/platform/deployments/manual</code>,
+                <code>GET /api/platform/deployments</code>
+              </li>
+              <li>
+                Invitations: <code>POST /api/platform/invitations</code>,
+                <code>GET /api/platform/invitations</code>
+              </li>
+              <li>
+                API keys: <code>POST /api/platform/api-keys</code>,
+                <code>GET /api/platform/api-keys</code>,
+                <code>POST /api/platform/api-keys/{id}/revoke</code>
+              </li>
+              <li>Platform summary: <code>GET /api/platform/summary</code></li>
+            </ul>
+
+            <details class="details">
+              <summary>Implemented capabilities</summary>
+              <ul>
+                <li>FastAPI backend with SQLite persistence and audit events</li>
+                <li>
+                  Bulk database import API (SQLite/PostgreSQL/MySQL) using a
+                  <code>SELECT</code> query
+                </li>
+                <li>
+                  Durable async job queue (worker thread + persisted job state in
+                  SQLite)
+                </li>
+                <li>Job APIs: list (<code>GET /api/jobs</code>) + detail</li>
+                <li>Auth/RBAC APIs (bootstrap admin, login, user management)</li>
+                <li>Web dashboard: upload, queue monitoring, analytics, review</li>
+                <li>Dashboard topbar: Connect, Manual Deploy, Invite, API Key</li>
+                <li>Unit tests for core pipeline logic</li>
+              </ul>
+            </details>
+
+            <details class="details">
+              <summary>Key files</summary>
+              <ul>
+                <li><code>backend/app/main.py</code>: API routes + orchestration</li>
+                <li><code>backend/app/pipeline.py</code>: pipeline core</li>
+                <li>
+                  <code>backend/app/providers.py</code>: Azure/OpenAI/Anthropic
+                  integrations
+                </li>
+                <li><code>backend/app/auth.py</code>: auth, hashing, RBAC</li>
+                <li><code>backend/app/jobs.py</code>: durable background worker</li>
+                <li><code>backend/app/deployments.py</code>: deploy triggers</li>
+                <li>
+                  <code>backend/app/document_tasks.py</code>: reusable task logic
+                </li>
+                <li><code>backend/app/rules.py</code>: runtime rules + persistence</li>
+                <li><code>backend/app/config.py</code>: env-based config</li>
+                <li>
+                  <code>backend/tests/test_platform_api.py</code>: platform API
+                  tests
+                </li>
+                <li><code>frontend/index.html</code>: dashboard shell</li>
+                <li><code>frontend/app.v2.js</code>: dashboard behavior</li>
+                <li><code>deploy/k8s/</code>: Kubernetes manifests</li>
+                <li><code>docker-compose.yml</code>: local orchestration</li>
+                <li><code>scripts/run_demo.sh</code>: end-to-end demo runner</li>
+              </ul>
+            </details>
+
+            <details class="details">
+              <summary>Run locally</summary>
+              <pre><code>cd citysort
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r backend/requirements.txt
+
+cp .env.example .env
+# Default .env values run fully local.</code></pre>
+            </details>
+
+            <h2>Safer AI rollout profile (recommended)</h2>
+            <p>
+              The system is designed so you can start rules-first, require human
+              review, and only gradually enable external providers when
+              connectivity and security controls are in place.
+            </p>
+            <ul>
+              <li>
+                Start with <code>CITYSORT_CLASSIFIER_PROVIDER=rules</code> and
+                local OCR, then enable Anthropic for JSON classification when
+                ready
+              </li>
+              <li>
+                Keep a high confidence gate via
+                <code>CITYSORT_CONFIDENCE_THRESHOLD</code>
+              </li>
+              <li>
+                Force review for sensitive doc types via
+                <code>CITYSORT_FORCE_REVIEW_DOC_TYPES</code>
+              </li>
+              <li>
+                Require auth/RBAC:
+                <code>CITYSORT_REQUIRE_AUTH=true</code> and strong secrets
+              </li>
+              <li>
+                Use platform connectivity checks before routing real traffic to
+                providers
+              </li>
+              <li>
+                Keep audit trails on by default so every decision is traceable
+              </li>
             </ul>
 
             <h2>Highlights</h2>
             <div class="callouts">
               <div class="callout">
-                <h3>Human-in-the-loop AI</h3>
+                <h3>Provider switching + fallback</h3>
                 <p>
-                  Anthropic-powered suggestions that speed up operator work,
-                  while keeping humans in control of every write.
+                  Swap OCR/classification providers (rules/OpenAI/Anthropic) and
+                  fall back to local processing when external calls fail.
                 </p>
               </div>
               <div class="callout">
-                <h3>Automation workflows</h3>
+                <h3>Durable jobs + reprocess</h3>
                 <p>
-                  Batch jobs and validations that keep the system consistent as
-                  the rule set grows.
+                  Async worker with persisted job state, plus a reprocess action
+                  to apply updated rules/providers without re-upload.
                 </p>
               </div>
               <div class="callout">
-                <h3>Traceability + safety</h3>
+                <h3>Ops controls + audit trail</h3>
                 <p>
-                  Audit-friendly changes with clarity on what happened, why it
-                  happened, and how to undo it.
+                  Connectivity checks, deploy history, API keys, invitations, and
+                  per-document audit events for traceability.
                 </p>
               </div>
             </div>
 
             <h2>What I would show in a live demo</h2>
             <ol>
-              <li>How a noisy input gets normalized end-to-end</li>
-              <li>An Anthropic-assisted suggestion and operator approval</li>
-              <li>An automation run plus the audit trail and metrics</li>
+              <li>Upload a document: OCR, classification, validation, routing</li>
+              <li>Human review: corrections, audit history, approval</li>
+              <li>Switch providers + reprocess to apply updated rules</li>
             </ol>
 
             <h2>Next</h2>
