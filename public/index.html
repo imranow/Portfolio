@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Portfolio of projects: CitySort, a mobile app, and a fraud ML detection system."
+    />
+
+    <title>Imran - Portfolio</title>
+
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true">I</span>
+          <span class="brand-text">Imran</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#projects">Projects</a>
+          <a href="#about">About</a>
+          <a href="#contact" class="nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy" data-reveal>
+            <p class="eyebrow">Product-minded engineering</p>
+            <h1 class="hero-title">
+              I build practical software: shipped, measured, iterated.
+            </h1>
+            <p class="hero-subtitle">
+              Here are three projects I have been building recently: CitySort, a
+              mobile app, and a fraud ML detection system.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#projects">View projects</a>
+              <a class="btn btn-ghost" href="https://github.com/" target="_blank" rel="noreferrer"
+                >GitHub</a
+              >
+            </div>
+
+            <dl class="hero-metrics" aria-label="Focus areas">
+              <div class="metric">
+                <dt>Speed</dt>
+                <dd>prototype to production</dd>
+              </div>
+              <div class="metric">
+                <dt>Quality</dt>
+                <dd>tests, monitoring, polish</dd>
+              </div>
+              <div class="metric">
+                <dt>Data</dt>
+                <dd>analytics and ML systems</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="hero-art" data-reveal>
+            <div class="art-card">
+              <div class="art-top">
+                <span class="dot dot-a" aria-hidden="true"></span>
+                <span class="dot dot-b" aria-hidden="true"></span>
+                <span class="dot dot-c" aria-hidden="true"></span>
+              </div>
+              <div class="art-body">
+                <p class="art-kicker">Currently building</p>
+                <ul class="art-list">
+                  <li>CitySort - location workflows and rules</li>
+                  <li>Mobile app - focused, fast UX</li>
+                  <li>Fraud ML - signal to decision</li>
+                </ul>
+                <p class="art-footnote">
+                  This site is a static build designed for GitHub Pages.
+                </p>
+              </div>
+            </div>
+            <div class="art-shadow" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <h2 class="section-title">Projects</h2>
+            <p class="section-subtitle">
+              Short, scannable summaries with deeper case studies when you want
+              them.
+            </p>
+          </div>
+
+          <div class="cards">
+            <article class="card" data-reveal>
+              <div class="card-top">
+                <img
+                  class="card-icon"
+                  src="./assets/citysort.svg"
+                  width="56"
+                  height="56"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <h3 class="card-title">CitySort</h3>
+              </div>
+              <p class="card-summary">
+                A project focused on building structured location workflows with
+                rules, validation, and a clean operator experience.
+              </p>
+              <ul class="taglist" aria-label="CitySort tags">
+                <li>rules</li>
+                <li>data quality</li>
+                <li>ops UX</li>
+              </ul>
+              <div class="card-actions">
+                <a class="btn btn-small btn-primary" href="./projects/citysort/"
+                  >Case study</a
+                >
+                <a class="btn btn-small btn-ghost" href="#" aria-disabled="true"
+                  >Code</a
+                >
+              </div>
+            </article>
+
+            <article class="card" data-reveal>
+              <div class="card-top">
+                <img
+                  class="card-icon"
+                  src="./assets/mobile-app.svg"
+                  width="56"
+                  height="56"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <h3 class="card-title">Mobile App</h3>
+              </div>
+              <p class="card-summary">
+                A mobile-first product where the core constraint is speed: fast
+                screens, fast onboarding, fast loops.
+              </p>
+              <ul class="taglist" aria-label="Mobile app tags">
+                <li>UX</li>
+                <li>performance</li>
+                <li>shipping</li>
+              </ul>
+              <div class="card-actions">
+                <a class="btn btn-small btn-primary" href="./projects/mobile-app/"
+                  >Case study</a
+                >
+                <a class="btn btn-small btn-ghost" href="#" aria-disabled="true"
+                  >Code</a
+                >
+              </div>
+            </article>
+
+            <article class="card" data-reveal>
+              <div class="card-top">
+                <img
+                  class="card-icon"
+                  src="./assets/fraud-ml.svg"
+                  width="56"
+                  height="56"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <h3 class="card-title">Fraud ML Detection</h3>
+              </div>
+              <p class="card-summary">
+                A fraud detection pipeline that turns raw events into ranked
+                risk, with evaluation, monitoring, and feedback loops.
+              </p>
+              <ul class="taglist" aria-label="Fraud ML tags">
+                <li>ML systems</li>
+                <li>evaluation</li>
+                <li>monitoring</li>
+              </ul>
+              <div class="card-actions">
+                <a class="btn btn-small btn-primary" href="./projects/fraud-ml/"
+                  >Case study</a
+                >
+                <a class="btn btn-small btn-ghost" href="#" aria-disabled="true"
+                  >Code</a
+                >
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section section-alt">
+        <div class="container about-grid">
+          <div data-reveal>
+            <h2 class="section-title">About</h2>
+            <p class="section-subtitle">
+              I like building systems that are easy to operate: clear UX,
+              observable behavior, and sharp edges sanded down.
+            </p>
+          </div>
+
+          <div class="about-panels">
+            <div class="panel" data-reveal>
+              <h3 class="panel-title">What I care about</h3>
+              <ul class="panel-list">
+                <li>Readable code and boring architecture when possible</li>
+                <li>Metrics and feedback loops, not just demos</li>
+                <li>Performance and reliability as product features</li>
+              </ul>
+            </div>
+
+            <div class="panel" data-reveal>
+              <h3 class="panel-title">What I am good at</h3>
+              <ul class="panel-list">
+                <li>Shipping end-to-end features and tooling</li>
+                <li>Turning messy inputs into clean data</li>
+                <li>Designing for operators and edge cases</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="container contact">
+          <div class="section-head" data-reveal>
+            <h2 class="section-title">Contact</h2>
+            <p class="section-subtitle">
+              If you want to collaborate or talk about any of these projects,
+              reach out.
+            </p>
+          </div>
+
+          <div class="contact-card" data-reveal>
+            <div class="contact-row">
+              <div>
+                <p class="contact-label">Email</p>
+                <p class="contact-value">
+                  <a href="mailto:hello@example.com">hello@example.com</a>
+                </p>
+              </div>
+              <div class="contact-actions">
+                <a
+                  class="btn btn-primary"
+                  href="mailto:hello@example.com"
+                  >Send email</a
+                >
+                <a
+                  class="btn btn-ghost"
+                  href="https://www.linkedin.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >LinkedIn</a
+                >
+              </div>
+            </div>
+            <p class="contact-note">
+              Update the email and links in <code>public/index.html</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-left">
+          <span class="footer-mark" aria-hidden="true"></span>
+          <span>Imran</span>
+        </p>
+        <p class="footer-right">
+          <a href="./">Home</a>
+          <span class="sep" aria-hidden="true">/</span>
+          <a href="#projects">Projects</a>
+          <span class="sep" aria-hidden="true">/</span>
+          <a href="#contact">Contact</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
