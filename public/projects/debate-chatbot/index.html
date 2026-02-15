@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Debate Chatbot (RAG) case study: grounded Q&A over 2019-2020 U.S. Democratic primary debate transcripts using Pinecone and Anthropic, with citations."
+    />
+
+    <title>Debate Chatbot (RAG) - Case Study</title>
+
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../../styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="../../script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../../" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true">I</span>
+          <span class="brand-text">Imran Tanbir</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="../../#about">About</a>
+          <a href="../../#skills">Skills</a>
+          <a href="../../#projects">Projects</a>
+          <a href="../../#experience">Experience</a>
+          <a href="../../#contact" class="nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content" class="page">
+      <section class="section">
+        <div class="container">
+          <p class="crumb" data-reveal>
+            <a href="../../#projects">Projects</a>
+            <span class="sep" aria-hidden="true">/</span>
+            <span>Debate Chatbot (RAG)</span>
+          </p>
+
+          <div class="project-hero" data-reveal>
+            <div class="project-hero-top">
+              <img
+                class="project-icon"
+                src="../../assets/debate-chatbot.svg"
+                width="64"
+                height="64"
+                alt=""
+                aria-hidden="true"
+              />
+              <div>
+                <h1 class="project-title">Debate Chatbot (RAG)</h1>
+                <p class="project-subtitle">
+                  Grounded Q&amp;A over the 2019-2020 U.S. Democratic primary
+                  debate transcripts using Pinecone retrieval and Anthropic
+                  (Claude) generation, returning citations for every answer.
+                </p>
+              </div>
+            </div>
+
+            <div class="project-actions">
+              <a class="btn btn-primary" href="../../#contact">Work with me</a>
+              <a
+                class="btn btn-ghost"
+                href="https://9rhyvmep9y.us-east-1.awsapprunner.com/"
+                target="_blank"
+                rel="noreferrer"
+                >Live</a
+              >
+              <a
+                class="btn btn-ghost"
+                href="https://github.com/imranow/debate-chatbot"
+                target="_blank"
+                rel="noreferrer"
+                >Repo</a
+              >
+            </div>
+          </div>
+
+          <div class="prose" data-reveal>
+            <h2>What it does</h2>
+            <p>
+              This app answers questions by retrieving relevant debate transcript
+              snippets at query time, then asking Claude to respond using only
+              those sources. The response includes citations so the user can see
+              exactly what the answer was grounded on.
+            </p>
+
+            <h2>Key features</h2>
+            <ul>
+              <li>Web chat UI at <code>/</code></li>
+              <li>API endpoint at <code>POST /chat</code></li>
+              <li>Source citations included in responses</li>
+              <li>
+                One-command ingestion into Pinecone via
+                <code>scripts/ingest.py</code>
+              </li>
+            </ul>
+
+            <h2>Architecture</h2>
+            <ol>
+              <li>
+                Ingest transcripts into Pinecone as records with metadata
+                (speaker/date/debate info).
+              </li>
+              <li>
+                At query time: embed the question and retrieve <code>top_k</code>
+                relevant records.
+              </li>
+              <li>
+                Inject retrieved sources into a prompt and ask Claude to answer
+                with citations.
+              </li>
+            </ol>
+
+            <h2>API</h2>
+            <h3>GET /health</h3>
+            <p>Returns:</p>
+            <pre><code>{ "status": "ok" }</code></pre>
+
+            <h3>POST /chat</h3>
+            <p>Request body:</p>
+            <pre><code>{
+  "question": "What did candidates say about Medicare for All?",
+  "top_k": 8
+}</code></pre>
+
+            <p>Response:</p>
+            <ul>
+              <li>
+                <code>answer</code>: Markdown-formatted answer with citations like
+                <code>[1]</code>
+              </li>
+              <li>
+                <code>citations</code>: the retrieved transcript snippets with
+                metadata + excerpt
+              </li>
+            </ul>
+
+            <h2>Quickstart (local)</h2>
+            <pre><code>python3 -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+
+cp .env.example .env
+# set:
+#   PINECONE_API_KEY
+#   ANTHROPIC_API_KEY
+
+# add dataset CSV (not committed in repo):
+#   debate_transcripts_v3_2020-02-26.csv
+
+python3 scripts/ingest.py
+uvicorn backend.main:app --reload --host 127.0.0.1 --port 8001</code></pre>
+
+            <h2>Deployment</h2>
+            <p>
+              The project includes a Dockerfile and is deployed on AWS App Runner
+              (health check path: <code>/health</code>).
+            </p>
+
+            <h2>Configuration</h2>
+            <p>Minimum environment variables:</p>
+            <ul>
+              <li><code>PINECONE_API_KEY</code></li>
+              <li><code>ANTHROPIC_API_KEY</code></li>
+            </ul>
+            <p>Common options:</p>
+            <ul>
+              <li>
+                <code>PINECONE_INDEX_NAME</code>,
+                <code>PINECONE_NAMESPACE</code>
+              </li>
+              <li>
+                <code>PINECONE_INDEX_HOST</code> (recommended to avoid control
+                plane lookup)
+              </li>
+              <li><code>TOP_K</code>, <code>MAX_CONTEXT_CHARS</code></li>
+            </ul>
+
+            <h2>Next</h2>
+            <p class="next-links">
+              <a class="btn btn-small btn-ghost" href="../fraud-ml/"
+                >Back: Fraud ML</a
+              >
+              <a class="btn btn-small btn-ghost" href="../../#projects"
+                >All projects</a
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-left">
+          <span class="footer-mark" aria-hidden="true"></span>
+          <span>Imran Tanbir</span>
+        </p>
+        <p class="footer-right">
+          <a href="../../">Home</a>
+          <span class="sep" aria-hidden="true">/</span>
+          <a href="../../#projects">Projects</a>
+          <span class="sep" aria-hidden="true">/</span>
+          <a href="../../#contact">Contact</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+

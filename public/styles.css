@@ -385,6 +385,11 @@ code {
   gap: 14px;
 }
 
+.card-center {
+  /* Center a single-card row when using a 3-column grid (e.g., 4 projects). */
+  grid-column: 2;
+}
+
 .card {
   border-radius: var(--radius);
   border: 1px solid rgba(17, 24, 39, 0.14);
@@ -809,6 +814,9 @@ html.js [data-reveal].is-visible {
   }
   .cards {
     grid-template-columns: 1fr;
+  }
+  .card-center {
+    grid-column: auto;
   }
   .about-grid {
     grid-template-columns: 1fr;
